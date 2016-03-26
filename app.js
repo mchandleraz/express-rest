@@ -5,14 +5,20 @@ var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 
-var config        = require('./config');
-
 var routes        = require('./routes/index');
 var users         = require('./routes/users');
 
 var app           = express();
 
+var mongoose      = require('mongoose');
+var db;
+
 var baseUrl;
+
+
+mongoose.connect('mongodb://dbuser:pass@ds053438.mlab.com:53438/express-crud');
+db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -21,7 +27,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-baseUrl = '/api/' + config.apiVersion;
+app.set('apiVersion', '1');
+app.set('baseUrl', '/api/' + app.get('apiVersion'));
+
+baseUrl = app.get('baseUrl');
 
 // Disable x-powered-by header
 app.set('x-powered-by', false);

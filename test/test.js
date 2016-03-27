@@ -107,7 +107,7 @@ describe('ROUTING', function() {
 					next();
 				});
 			});
-			it('responds with 501 for valid payload', function(next) {
+			it('responds with 200 for valid payload', function(next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -115,7 +115,7 @@ describe('ROUTING', function() {
 					'username': 'acceptable',
 					'password': 'supercalifragilistic'
 				})
-				.expect(501)
+				.expect(200)
 				.end(function(err, res) {
 					if (err) {
 						return next(err);
@@ -188,6 +188,23 @@ describe('MODELS', function() {
 				// 	return next(err);
 				// }
 				should.exist(err);
+
+				next();
+			});
+		});
+
+		it('persists a User if data is valid', function (next) {
+			var validUser = {
+				username: 'testUser' + Date.now(),
+				password: 'passwordwoooo'
+			};
+
+			User.create(validUser, function(err, createdUser) {
+				if (err) {
+					return next(err);
+				}
+
+				should.not.exist(err);
 
 				next();
 			});

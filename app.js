@@ -14,7 +14,6 @@ var db;
 
 var baseUrl;
 
-
 mongoose.connect('mongodb://dbuser:pass@ds053438.mlab.com:53438/express-crud');
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

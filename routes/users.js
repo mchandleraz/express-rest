@@ -6,7 +6,7 @@ var User 		= require('../models/user');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 	
-	User.find(function(err, users) {
+	User.find(function (err, users) {
 		if (err) {
 			res.send(err);
 		}
@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
 
-	User.findById(req.params.id, function(err, user) {
+	User.findById(req.params.id, function (err, user) {
 		if (err) {
 			res.send(err);
 		}
@@ -47,7 +47,7 @@ router.post('/', function (req, res, next) {
 		user.password = req.body.password;
 		user.username = req.body.username;
 
-		User.create(user, function(err, createdUser) {
+		User.create(user, function (err, createdUser) {
 			if (err) {
 				res.send(err);
 			}
@@ -63,21 +63,23 @@ router.post('/', function (req, res, next) {
 
 router.put('/:id', function (req, res, next) {
 
-	User.findById(req.params.id, function(err, user) {
+	User.findById(req.params.id, function (err, user) {
 		if (err) {
 			res.send(err);
+		} else {
+			user.username = req.body.username;
+			user.password = req.body.password;
+
+			user.save(function (err) {
+				console.log(err);
+				if (err) {
+					res.send(err);
+				}
+
+				res.send(user);
+			});
 		}
 
-		user.username = req.body.username;
-		user.password = req.body.password;
-
-		user.save(function(err) {
-			if (err) {
-				res.send(err);
-			}
-
-			res.json({user});
-		});
 	});
 
 });

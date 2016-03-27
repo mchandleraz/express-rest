@@ -23,16 +23,33 @@ describe('ROUTING', function() {
 				});
 			});
 		});
+
+		describe('PUT', function() {
+			it('responds with 404', function (next) {
+				request(app)
+				.put(baseUrl)
+				.set('Accept', 'application/json')
+				.expect(404)
+				.end(function (err, res) {
+					if (err) {
+						return next(err);
+					}
+
+					next();
+
+				});
+			});
+		})
 	});
 
-	describe('/users/', function() {
+	describe('/users/', function () {
 
-		describe('GET', function() {
-			it('responds with 501', function(next) {
+		describe('GET', function () {
+			it('responds with 200', function(next) {
 				request(app)
 				.get(baseUrl + '/users')
 				.set('Accept', 'application/json')
-				.expect(501)
+				.expect(200)
 				.end(function (err, res) {
 					if (err) {
 						return next(err);
@@ -44,14 +61,14 @@ describe('ROUTING', function() {
 			});
 		});
 
-		describe('POST', function() {
-			it('responds with 400 if username is missing', function(next) {
+		describe('POST', function () {
+			it('responds with 400 if username is missing', function (next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.send({})
 				.expect(400)
-				.end(function(err, res) {
+				.end(function (err, res) {
 					if (err) {
 						return next(err);
 					}
@@ -59,13 +76,13 @@ describe('ROUTING', function() {
 					next();
 				});
 			});
-			it('responds with 400 if password is missing', function(next) {
+			it('responds with 400 if password is missing', function (next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.send({})
 				.expect(400)
-				.end(function(err, res) {
+				.end(function (err, res) {
 					if (err) {
 						return next(err);
 					}
@@ -73,7 +90,7 @@ describe('ROUTING', function() {
 					next();
 				});
 			});
-			it('responds with 400 if username is less than 4 characters', function(next) {
+			it('responds with 400 if username is less than 4 characters', function (next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -82,7 +99,7 @@ describe('ROUTING', function() {
 					'password': 'thisisalongpasswordright'
 				})
 				.expect(400)
-				.end(function(err, res) {
+				.end(function (err, res) {
 					if (err) {
 						return next(err);
 					}
@@ -90,7 +107,7 @@ describe('ROUTING', function() {
 					next();
 				});
 			});
-			it('responds with 400 if password is less than 12 chars', function(next) {
+			it('responds with 400 if password is less than 12 chars', function (next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -99,7 +116,7 @@ describe('ROUTING', function() {
 					'password': 'shorty'
 				})
 				.expect(400)
-				.end(function(err, res) {
+				.end(function (err, res) {
 					if (err) {
 						return next(err);
 					}
@@ -107,7 +124,7 @@ describe('ROUTING', function() {
 					next();
 				});
 			});
-			it('responds with 200 for valid payload', function(next) {
+			it('responds with 200 for valid payload', function (next) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -116,7 +133,7 @@ describe('ROUTING', function() {
 					'password': 'supercalifragilistic'
 				})
 				.expect(200)
-				.end(function(err, res) {
+				.end(function (err, res) {
 					if (err) {
 						return next(err);
 					}
@@ -125,10 +142,51 @@ describe('ROUTING', function() {
 				})
 			})
 		});
+
+	});
+
+	describe('/users/:id', function () {
+		describe('GET', function () {
+			it('responds with 200', function (next) {
+				request(app)
+				.get(baseUrl + '/users/56f6fb023724d009116d08f6')
+				.set('Accept', 'application/json')
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						return next(err);
+					}
+
+					next();
+
+				});
+			});
+		});
+
+		describe('PUT', function () {
+			it('updates a user', function (next) {
+				request(app)
+				.put(baseUrl + '/users/56f6fb023724d009116d08f6')
+				.set('Accept', 'application/json')
+				.send({
+					'username': 'acceptable',
+					'password': 'supercalifragilistic'
+				})
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						return next(err);
+					}
+
+					next();
+
+				});
+			});
+		});
 	});
 });
 
-describe('MODELS', function() {
+describe('MODELS', function () {
 
 	var User = require('../models/user');
 
@@ -140,7 +198,7 @@ describe('MODELS', function() {
 				password: 'barbar'
 			};
 
-			User.create(user, function(err, createdUser) {
+			User.create(user, function (err, createdUser) {
 				// if (err) {
 				// 	return next(err);
 				// }
@@ -155,7 +213,7 @@ describe('MODELS', function() {
 				password: 'barbarfoofooasdf'
 			};
 
-			User.create(user, function(err, createdUser) {
+			User.create(user, function (err, createdUser) {
 				// if (err) {
 				// 	return next(err);
 				// }
@@ -169,7 +227,7 @@ describe('MODELS', function() {
 				username: 'foo4'
 			};
 
-			User.create(user, function(err, createdUser) {
+			User.create(user, function (err, createdUser) {
 				// if (err) {
 				// 	return next(err);
 				// }
@@ -183,7 +241,7 @@ describe('MODELS', function() {
 				password: 'barbarfoofooasdf'
 			};
 
-			User.create(user, function(err, createdUser) {
+			User.create(user, function (err, createdUser) {
 				// if (err) {
 				// 	return next(err);
 				// }
@@ -199,7 +257,7 @@ describe('MODELS', function() {
 				password: 'passwordwoooo'
 			};
 
-			User.create(validUser, function(err, createdUser) {
+			User.create(validUser, function (err, createdUser) {
 				if (err) {
 					return next(err);
 				}
@@ -209,6 +267,5 @@ describe('MODELS', function() {
 				next();
 			});
 		});
-
 	});
 });

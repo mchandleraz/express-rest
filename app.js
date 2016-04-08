@@ -16,7 +16,7 @@ var baseUrl;
 
 mongoose.connect('mongodb://dbuser:pass@ds053438.mlab.com:53438/express-crud');
 db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'connection error: '));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -35,15 +35,6 @@ app.set('x-powered-by', false);
 
 app.use(baseUrl, routes);
 app.use(baseUrl + '/users', users);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
 
 // development error handler
 // will print stacktrace

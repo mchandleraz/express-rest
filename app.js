@@ -6,8 +6,11 @@ var bodyParser    = require('body-parser');
 
 var routes        = require('./routes/index');
 var users         = require('./routes/users');
+var authenticate  = require('./routes/authenticate');
 
 var app           = express();
+
+var jwt           = require('jsonwebtoken');
 
 var mongoose      = require('mongoose');
 var db;
@@ -28,6 +31,8 @@ app.use(cookieParser());
 app.set('apiVersion', '1');
 app.set('baseUrl', '/api/' + app.get('apiVersion'));
 
+app.set('superSecret', 'boomshakalaka');
+
 baseUrl = app.get('baseUrl');
 
 // Disable x-powered-by header
@@ -35,6 +40,7 @@ app.set('x-powered-by', false);
 
 app.use(baseUrl, routes);
 app.use(baseUrl + '/users', users);
+app.use(baseUrl + '/authenticate', authenticate);
 
 // development error handler
 // will print stacktrace

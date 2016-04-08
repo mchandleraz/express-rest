@@ -8,34 +8,34 @@ describe('ROUTING', function() {
 	describe('/', function () {
 
 		describe('GET', function() {
-			it('responds with 501', function (next) {
+			it('responds with 501', function (done) {
 				request(app)
 				.get(baseUrl)
 				.set('Accept', 'application/json')
 				.expect(501)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 
 				});
 			});
 		});
 
 		describe('PUT', function() {
-			it('responds with 404', function (next) {
+			it('responds with 404', function (done) {
 				request(app)
 				.put(baseUrl)
 				.set('Accept', 'application/json')
 				.expect(404)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 
 				});
 			});
@@ -45,52 +45,52 @@ describe('ROUTING', function() {
 	describe('/users/', function () {
 
 		describe('GET', function () {
-			it('responds with 200', function(next) {
+			it('responds with 200', function(done) {
 				request(app)
 				.get(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 
 				});
 			});
 		});
 
 		describe('POST', function () {
-			it('responds with 400 if username is missing', function (next) {
+			it('responds with 500 if username is missing', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.send({})
-				.expect(400)
+				.expect(500)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 				});
 			});
-			it('responds with 400 if password is missing', function (next) {
+			it('responds with 500 if password is missing', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.send({})
-				.expect(400)
+				.expect(500)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 				});
 			});
-			it('responds with 400 if username is less than 4 characters', function (next) {
+			it('responds with 500 if username is less than 4 characters', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -98,16 +98,16 @@ describe('ROUTING', function() {
 					'username': 'foo',
 					'password': 'thisisalongpasswordright'
 				})
-				.expect(400)
+				.expect(500)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 				});
 			});
-			it('responds with 400 if password is less than 12 chars', function (next) {
+			it('responds with 500 if password is less than 12 chars', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -115,16 +115,16 @@ describe('ROUTING', function() {
 					'username': 'whoahnelly',
 					'password': 'shorty'
 				})
-				.expect(400)
+				.expect(500)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 				});
 			});
-			it('responds with 200 for valid payload', function (next) {
+			it('responds with 200 for valid payload', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
@@ -135,10 +135,10 @@ describe('ROUTING', function() {
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 				})
 			})
 		});
@@ -147,24 +147,24 @@ describe('ROUTING', function() {
 
 	describe('/users/:id', function () {
 		describe('GET', function () {
-			it('responds with 200', function (next) {
+			it('responds with 200', function (done) {
 				request(app)
 				.get(baseUrl + '/users/56f6fb023724d009116d08f6')
 				.set('Accept', 'application/json')
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 
 				});
 			});
 		});
 
 		describe('PUT', function () {
-			it('updates a user', function (next) {
+			it('updates a user', function (done) {
 				request(app)
 				.put(baseUrl + '/users/56f6fb023724d009116d08f6')
 				.set('Accept', 'application/json')
@@ -175,12 +175,40 @@ describe('ROUTING', function() {
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
-						return next(err);
+						return done(err);
 					}
 
-					next();
+					done();
 
 				});
+			});
+		});
+	});
+
+	describe('/authenticate', function () {
+		describe('POST', function () {
+			it('returns a token for a valid user', function(done) {
+				request(app)
+				.post(baseUrl + '/authenticate')
+				.set('Accept', 'application/json')
+				.send({
+					username: 'acceptable',
+					password: 'supercalifragilistic'
+				})
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						return done(err);
+					}
+
+					expect(res.body).to.have.property('token');
+
+					done();
+				});
+
+				function validator(res) {
+					return false
+				}
 			});
 		});
 	});
@@ -192,79 +220,69 @@ describe('MODELS', function () {
 
 	describe('User', function() {
 
-		it('throws an error if password.length < 12', function (next) {
+		it('throws an error if password.length < 12', function (done) {
 			var user = {
 				username: 'foo4',
 				password: 'barbar'
 			};
 
 			User.create(user, function (err, createdUser) {
-				// if (err) {
-				// 	return next(err);
-				// }
+				
 				should.exist(err);
 
-				next();
+				done();
 			});
 		});
-		it('throws an error if username.length < 4', function (next) {
+		it('throws an error if username.length < 4', function (done) {
 			var user = {
 				username: 'foo',
 				password: 'barbarfoofooasdf'
 			};
 
 			User.create(user, function (err, createdUser) {
-				// if (err) {
-				// 	return next(err);
-				// }
+				
 				should.exist(err);
 
-				next();
+				done();
 			});
 		});
-		it('throws an error if password is missing', function (next) {
+		it('throws an error if password is missing', function (done) {
 			var user = {
 				username: 'foo4'
 			};
 
 			User.create(user, function (err, createdUser) {
-				// if (err) {
-				// 	return next(err);
-				// }
+				
 				should.exist(err);
 
-				next();
+				done();
 			});
 		});
-		it('throws an error if username is missing', function (next) {
+		it('throws an error if username is missing', function (done) {
 			var user = {
 				password: 'barbarfoofooasdf'
 			};
 
 			User.create(user, function (err, createdUser) {
-				// if (err) {
-				// 	return next(err);
-				// }
+				
 				should.exist(err);
 
-				next();
+				done();
 			});
 		});
 
-		it('persists a User if data is valid', function (next) {
+		it('persists a User if data is valid', function (done) {
 			var validUser = {
 				username: 'testUser' + Date.now(),
-				password: 'passwordwoooo'
+				password: 'passwordwoooo',
+				admin: false
 			};
 
 			User.create(validUser, function (err, createdUser) {
-				if (err) {
-					return next(err);
-				}
 
 				should.not.exist(err);
 
-				next();
+				done();
 			});
 		});
 	});

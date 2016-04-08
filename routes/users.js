@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 	
 	User.find(function (err, users) {
 		if (err) {
-			res.send(err);
+			return next(err);
 		}
 
 		res.json(users);
@@ -20,7 +20,7 @@ router.get('/:id', function (req, res, next) {
 
 	User.findById(req.params.id, function (err, user) {
 		if (err) {
-			res.send(err);
+			return next(err);
 		}
 
 		res.json(user);
@@ -30,34 +30,25 @@ router.get('/:id', function (req, res, next) {
 
 /* POST new user */
 router.post('/', function (req, res, next) {
-	if (!req.body.username || req.body.username.length < 4) {
-		res.status(400)
-		   .send({
-		   	'message': 'missing username'
-		   });
-	} else if (!req.body.password || req.body.password.length < 12) {
-		res.status(400)
-		   .send({
-		   	'message': 'password missing or too short'
-		   });
-	} else {
 		
-		var user = new User();
+	var user = new User();
 
-		user.password = req.body.password;
-		user.username = req.body.username;
+	// FOR THE LOVE OF GOD HASH PASSWORD IDIOT
+	user.password 	= req.body.password;
+	user.username 	= req.body.username;
+	user.admin 		= false;
 
-		User.create(user, function (err, createdUser) {
-			if (err) {
-				res.send(err);
-			}
+	User.create(user, function (err, createdUser) {
+		if (err) {
+			return next(err);
+		}
 
-			res.status(200).send({
-				message: 'success',
-				username: createdUser.username
-			});
+		res.status(200).send({
+			message: 'success',
+			username: createdUser.username,
+			success: true
 		});
-	}
+	});
 
 });
 
@@ -65,15 +56,15 @@ router.put('/:id', function (req, res, next) {
 
 	User.findById(req.params.id, function (err, user) {
 		if (err) {
-			res.send(err);
+			return res.send(err);
 		} else {
-			user.username = req.body.username;
-			user.password = req.body.password;
+			user.username 	= req.body.username;
+			user.password 	= req.body.password;
+			user.admin		= false;
 
 			user.save(function (err) {
-				console.log(err);
 				if (err) {
-					res.send(err);
+					return next(err);
 				}
 
 				res.send(user);

@@ -7,10 +7,15 @@ var UserSchema = new Schema({
 		required: true,
 		minlength: 4
 	},
+	// hash it nerd.
 	password: {
 		type: String,
 		required: true,
 		minlength: 12
+	},
+	admin: {
+		type: Boolean,
+		required: true
 	}
 });
 

@@ -7,23 +7,6 @@ var baseUrl 	= app.get('baseUrl');
 describe('ROUTING', function() {
 	describe('/', function () {
 
-		describe('GET', function() {
-			it('responds with 501', function (done) {
-				request(app)
-				.get(baseUrl)
-				.set('Accept', 'application/json')
-				.expect(501)
-				.end(function (err, res) {
-					if (err) {
-						return done(err);
-					}
-
-					done();
-
-				});
-			});
-		});
-
 		describe('PUT', function() {
 			it('responds with 404', function (done) {
 				request(app)

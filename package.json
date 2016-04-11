@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "istanbul cover _mocha -- -R spec && codecov -t 043b95b2-3290-4f19-b90f-05bf253b5b87"
+    "test": "istanbul cover _mocha -- -R spec && codecov -t 043b95b2-3290-4f19-b90f-05bf253b5b87",
+    "bullshit": "istanbul help"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
     "mockgoose": "^6.0.0",
     "supertest": "^1.2.0"
   }

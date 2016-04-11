@@ -2,3 +2,11 @@
 [![Build Status](https://travis-ci.org/mchandleraz/express-rest.svg?branch=master)](https://travis-ci.org/mchandleraz/express-rest)
 
 greasy little REST api
+####Before Doing Anything
+```npm install```
+
+####To Run the Server Locally
+```npm start```
+
+####To Run the Tests
+```mocha --recursive```

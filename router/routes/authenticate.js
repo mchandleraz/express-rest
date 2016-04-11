@@ -1,44 +1,34 @@
-var express 	= require('express');
-var app			= express();
-var router 		= express.Router();
-
-var User 		= require('../models/user');
-
+var User 		= require('../../models/user');
 var jwt 		= require('jsonwebtoken');
 
-router.post('/', function(req, res) {
+var routes = function(app) {
+	
+	var baseUrl = app.get('baseUrl') + '/authenticate';
 
-	User.findOne({
-		username: req.body.username
-	}, function(err, user) {
-		if (err) {
-			return res.send(err);
-		}
+	app.get(baseUrl, function(req, res, next) {
+		res.json({'success':true});
+	})
 
-		if (!user) {
-			return res.json({
-				success: false,
-				message: 'Aith failed. User not found'
+	app.post(baseUrl, function(req, res, next) {
+
+		User.findOne({
+			username: req.body.username
+		}, function(err, user) {
+			if (err) {
+				return res.send(err);
+			}
+
+			var token = jwt.sign(user, req.app.get('superSecret'), {
+				expiresIn: 86400
 			});
-		}
 
-		if (user.password != req.body.password) {
-			return res.json({
-				success: false,
-				message: 'Auth failed. bad pass dawg'
+			res.status(200).json({
+				success: true,
+				token: token
 			});
-		}
 
-		var token = jwt.sign(user, req.app.get('superSecret'), {
-			expiresIn: 86400
 		});
-
-		res.status(200).json({
-			success: true,
-			token: token
-		});
-
 	});
-});
+}
 
-module.exports = router;
+module.exports = routes;

@@ -12,5 +12,5 @@ Do your work on a branch and submit a pull request. if you don't do a pr, i'll h
 
 # Code Review / Accepting PRs
 * Manually review code written and code removed for errors, anti-patterns, or any other grease
-* If issues are found, work with contributor to resolve. If not, merge to development and let ci handle its business
+* If issues are found, work with contributor to resolve. If not, merge to development and let ci handle its business. Use "[Delivers #TRACKER_STORY_ID_HERE]" to mark story as delivered in Tracker
 * Inform contributor that feature/fix is ready for testing

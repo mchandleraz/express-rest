@@ -1,6 +1,4 @@
 var should 		= require('chai').should();
-var expect 		= require('chai').expect;
-var request 	= require('supertest');
 var app 		= require('../../app.js');
 var baseUrl 	= app.get('baseUrl');
 

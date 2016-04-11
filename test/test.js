@@ -1,29 +1,15 @@
 var should 		= require('chai').should();
 var expect 		= require('chai').expect;
 var request 	= require('supertest');
+var mongoose 	= require('mongoose');
+var mockgoose	= require('mockgoose');
+
+mockgoose(mongoose);
 var app 		= require('../app.js');
+
 var baseUrl 	= app.get('baseUrl');
 
 describe('ROUTING', function() {
-	describe('/', function () {
-
-		describe('PUT', function() {
-			it('responds with 404', function (done) {
-				request(app)
-				.put(baseUrl)
-				.set('Accept', 'application/json')
-				.expect(404)
-				.end(function (err, res) {
-					if (err) {
-						return done(err);
-					}
-
-					done();
-
-				});
-			});
-		})
-	});
 
 	describe('/users/', function () {
 

@@ -1,8 +1,11 @@
-var User 		= require('../models/user');
+var User 		= require('../../models/user');
 
 var routes = function(app) {
+
+	var baseUrl = app.get('baseUrl') + '/users';
+
 	/* GET users listing. */
-	app.get('/', function (req, res, next) {
+	app.get(baseUrl + '/', function (req, res, next) {
 
 		User.find(function (err, users) {
 			if (err) {
@@ -13,7 +16,7 @@ var routes = function(app) {
 		});
 	});
 	
-	app.get('/:id', function (req, res, next) {
+	app.get(baseUrl + '/:id', function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {
 			if (err) {
@@ -25,7 +28,7 @@ var routes = function(app) {
 	});
 	
 	/* POST new user */
-	app.post('/', function (req, res, next) {
+	app.post(baseUrl + '/', function (req, res, next) {
 			
 		var user = new User();
 
@@ -47,7 +50,7 @@ var routes = function(app) {
 		});
 	});
 
-	app.put('/:id', function (req, res, next) {
+	app.put(baseUrl + '/:id', function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {
 			if (err) {
@@ -68,6 +71,6 @@ var routes = function(app) {
 
 		});
 	});
-};
+}
 
 module.exports = routes;

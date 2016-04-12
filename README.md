@@ -9,4 +9,4 @@ greasy little REST api
 ```npm start```
 
 ####To Run the Tests
-```mocha --recursive```
+```npm test```

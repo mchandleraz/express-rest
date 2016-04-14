@@ -98,8 +98,8 @@ describe('ROUTING', function() {
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.send({
-					'username': 'acceptable',
-					'password': 'supercalifragilistic'
+					'username': 'testUserWithMockgoose',
+					'password': 'testPasswordThatsLongEnough'
 				})
 				.expect(200)
 				.end(function (err, res) {

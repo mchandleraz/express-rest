@@ -7,7 +7,7 @@ var routes = function(app) {
 
 	app.get(baseUrl, function(req, res, next) {
 		res.json({'success':true});
-	})
+	});
 
 	app.post(baseUrl, function(req, res, next) {
 
@@ -29,6 +29,6 @@ var routes = function(app) {
 
 		});
 	});
-}
+};
 
 module.exports = routes;

@@ -5,13 +5,15 @@ var UserSchema = new Schema({
 	username: {
 		type: String,
 		required: true,
-		minlength: 4
+		minlength: 4,
+		trim: true
 	},
 	// hash it nerd.
 	password: {
 		type: String,
 		required: true,
-		minlength: 12
+		minlength: 12,
+		trim: true
 	},
 	admin: {
 		type: Boolean,

@@ -172,10 +172,7 @@ describe('CONTROLLERS', function() {
 					done();
 				});
 
-				function validator(res) {
-					return false
-				}
 			});
 		});
 	});
-})
+});

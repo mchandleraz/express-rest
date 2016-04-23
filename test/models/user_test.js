@@ -38,7 +38,8 @@ describe('MODELS', function () {
 
     it('throws an error if password is missing', function (done) {
       var user = {
-        username: 'foo4'
+        username: 'foo4',
+        password: null
       };
 
       User.create(user, function (err) {
@@ -51,6 +52,7 @@ describe('MODELS', function () {
 
     it('throws an error if username is missing', function (done) {
       var user = {
+        username: null,
         password: 'barbarfoofooasdf'
       };
 

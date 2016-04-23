@@ -33,7 +33,10 @@ describe('CONTROLLERS', function() {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
-				.send({})
+				.send({
+					'username': null,
+					'password': 'thisisalongpasswordright'
+				})
 				.expect(500)
 				.end(function (err, res) {
 					if (err) {
@@ -47,7 +50,10 @@ describe('CONTROLLERS', function() {
 				request(app)
 				.post(baseUrl + '/users')
 				.set('Accept', 'application/json')
-				.send({})
+				.send({
+					'username': 'testUserWithMockgoose',
+					'password': null
+				})
 				.expect(500)
 				.end(function (err, res) {
 					if (err) {

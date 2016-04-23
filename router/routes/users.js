@@ -16,6 +16,7 @@ var routes = function(app) {
 		});
 	});
 	
+	/* GET specific user*/
 	app.get(baseUrl + '/:id', function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {
@@ -50,6 +51,7 @@ var routes = function(app) {
 		});
 	});
 
+	/* Update existing user*/
 	app.put(baseUrl + '/:id', function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {

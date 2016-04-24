@@ -1,6 +1,9 @@
 var mongoose 	= require('mongoose');
 var Schema 		= mongoose.Schema;
 
+var bcrypt = require('bcrypt');
+var saltRounds = 10;
+
 var UserSchema = new Schema({
 	username: {
 		type: String,
@@ -20,4 +23,16 @@ var UserSchema = new Schema({
 	}
 });
 
-module.exports = mongoose.model('User', UserSchema);
+// TODO: make this asynchronous!
+// Hashing a password synchronously
+UserSchema.methods.encryptPassword = function (password) {
+	if (password.length < 12) {
+		return password;
+	} else {
+		var salt = bcrypt.genSaltSync(saltRounds);
+		var hash = bcrypt.hashSync(password, salt);
+		return hash;
+	}
+}
+
+module.exports = mongoose.model('User', UserSchema);;

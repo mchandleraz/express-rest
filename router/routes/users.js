@@ -1,4 +1,5 @@
 var User 		= require('../../models/user');
+var jwt 		= require('jsonwebtoken');
 
 var routes = function(app) {
 
@@ -38,13 +39,22 @@ var routes = function(app) {
 		user.admin 		= false;
 
 		User.create(user, function (err, createdUser) {
+			
+			var token;
+			
 			if (err) {
 				return next(err);
 			}
 
+			// TODO: make env var?
+			token = jwt.sign(user, req.app.get('jwtSecret'), {
+				expiresIn: 86400
+			});
+
 			res.status(200).send({
 				message: 'success',
 				username: createdUser.username,
+				token: token,
 				success: true
 			});
 		});

@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.set('apiVersion', '1');
 app.set('baseUrl', '/api/' + app.get('apiVersion'));
 
-app.set('superSecret', 'boomshakalaka');
+app.set('jwtSecret', 'boomshakalaka');
 
 baseUrl = app.get('baseUrl');
 

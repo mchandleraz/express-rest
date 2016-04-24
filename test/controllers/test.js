@@ -158,7 +158,7 @@ describe('CONTROLLERS', function() {
 				.post(baseUrl + '/authenticate')
 				.set('Accept', 'application/json')
 				.send({
-					username: 'acceptable',
+					username: 'm0ckgooseUser',
 					password: 'supercalifragilistic'
 				})
 				.expect(200)

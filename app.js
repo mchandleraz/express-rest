@@ -25,6 +25,7 @@ app.use(cookieParser());
 app.set('apiVersion', '1');
 app.set('baseUrl', '/api/' + app.get('apiVersion'));
 
+// TODO: env var. i think.
 app.set('jwtSecret', 'boomshakalaka');
 
 baseUrl = app.get('baseUrl');

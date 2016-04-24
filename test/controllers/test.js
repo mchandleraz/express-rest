@@ -156,29 +156,4 @@ describe('CONTROLLERS', function() {
 			});
 		});
 	});
-
-	describe('/authenticate', function () {
-		describe('POST', function () {
-			it('returns a token for a valid user', function(done) {
-				request(app)
-				.post(baseUrl + '/authenticate')
-				.set('Accept', 'application/json')
-				.send({
-					username: 'm0ckgooseUser',
-					password: 'supercalifragilistic'
-				})
-				.expect(200)
-				.end(function (err, res) {
-					if (err) {
-						return done(err);
-					}
-
-					expect(res.body).to.have.property('token');
-
-					done();
-				});
-
-			});
-		});
-	});
 });

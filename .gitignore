@@ -31,3 +31,6 @@ npm-debug.log
 
 #for webstorm
 .idea
+
+#derp
+.DS_Store

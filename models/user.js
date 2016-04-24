@@ -8,7 +8,6 @@ var UserSchema = new Schema({
 		minlength: 4,
 		trim: true
 	},
-	// hash it nerd.
 	password: {
 		type: String,
 		required: true,

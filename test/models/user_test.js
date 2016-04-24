@@ -14,7 +14,7 @@ describe('MODELS', function () {
         password: 'barbar'
       };
 
-      User.create(user, function (err, createdUser) {
+      User.create(user, function (err) {
 
         should.exist(err);
 
@@ -28,7 +28,7 @@ describe('MODELS', function () {
         password: 'barbarfoofooasdf'
       };
 
-      User.create(user, function (err, createdUser) {
+      User.create(user, function (err) {
 
         should.exist(err);
 
@@ -38,10 +38,11 @@ describe('MODELS', function () {
 
     it('throws an error if password is missing', function (done) {
       var user = {
-        username: 'foo4'
+        username: 'foo4',
+        password: null
       };
 
-      User.create(user, function (err, createdUser) {
+      User.create(user, function (err) {
 
         should.exist(err);
 
@@ -51,10 +52,11 @@ describe('MODELS', function () {
 
     it('throws an error if username is missing', function (done) {
       var user = {
+        username: null,
         password: 'barbarfoofooasdf'
       };
 
-      User.create(user, function (err, createdUser) {
+      User.create(user, function (err) {
 
         should.exist(err);
 

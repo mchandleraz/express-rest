@@ -30,17 +30,15 @@ var routes = function(app) {
 	});
 	
 	/* POST new user */
-	app.post(baseUrl + '/', function (req, res, next) {
-			
-		var user = new User();
+	app.post(baseUrl + '/', function (req, res, next) {	
 
-		// FOR THE LOVE OF GOD HASH PASSWORD IDIOT
-		user.password 	= req.body.password;
-		user.username 	= req.body.username;
-		user.admin 		= false;
+		var user 		= new User();
+		
+		user.password	= user.encryptPassword(req.body.password);
+		user.username	= req.body.username;
+		user.admin		= false;
 
 		User.create(user, function (err, createdUser) {
-			
 			var token;
 			
 			if (err) {
@@ -58,7 +56,9 @@ var routes = function(app) {
 				token: token,
 				success: true
 			});
+
 		});
+
 	});
 
 	/* Update existing user*/
@@ -68,8 +68,8 @@ var routes = function(app) {
 			if (err) {
 				return res.send(err);
 			} else {
+				user.password 	= user.encryptPassword(req.body.password);
 				user.username 	= req.body.username;
-				user.password 	= req.body.password;
 				user.admin		= false;
 
 				user.save(function (err) {

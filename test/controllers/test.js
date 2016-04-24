@@ -113,7 +113,7 @@ describe('CONTROLLERS', function() {
 
 					done();
 				})
-			})
+			});
 		});
 	});
 

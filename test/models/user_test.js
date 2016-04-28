@@ -109,4 +109,30 @@ describe('MODELS', function () {
       });
     });
   });
+
+  describe('Static Methods', function () {
+
+    it('encryptPassword: encrypts the password', function (done) {
+
+      var user = new User();
+      var password = 'passwordwoooo';
+      var encryptedPassword = user.encryptPassword(password);
+
+      encryptedPassword.should.not.equal(password);
+
+      done();
+    });
+
+    it('decryptPassword: decrypts the password', function (done) {
+
+      var user = new User();
+      var password = 'passwordwoooo';
+      var encryptedPassword = user.encryptPassword(password);
+      var decryptedPassword = user.decryptPassword(password, encryptedPassword);
+
+      decryptedPassword.should.be.true;
+
+      done();
+    });
+  });
 });

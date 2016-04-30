@@ -30,13 +30,12 @@ UserSchema.methods.encryptPassword = function (password) {
 		return password;
 	} else {
 		var salt = bcrypt.genSaltSync(saltRounds);
-		var hash = bcrypt.hashSync(password, salt);
-		return hash;
+		return bcrypt.hashSync(password, salt);
 	}
-}
+};
 
 UserSchema.methods.decryptPassword = function (password, hash) {
 	return bcrypt.compareSync(password, hash);
-}
+};
 
-module.exports = mongoose.model('User', UserSchema);;
+module.exports = mongoose.model('User', UserSchema);

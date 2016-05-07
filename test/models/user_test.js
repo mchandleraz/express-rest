@@ -8,78 +8,64 @@ describe('MODELS', function () {
 
   describe('User', function() {
 
-    it('throws an error if password.length < 12', function (done) {
+    it('throws an error if password.length < 12', function () {
       var user = {
         username: 'foo4',
         password: 'barbar'
       };
 
       User.create(user, function (err) {
-
         should.exist(err);
-
-        done();
       });
     });
 
-    it('throws an error if username.length < 4', function (done) {
+    it('throws an error if username.length < 4', function () {
       var user = {
         username: 'foo',
         password: 'barbarfoofooasdf'
       };
 
       User.create(user, function (err) {
-
         should.exist(err);
-
-        done();
       });
+
     });
 
-    it('throws an error if password is missing', function (done) {
+    it('throws an error if password is missing', function () {
       var user = {
         username: 'foo4',
         password: null
       };
 
       User.create(user, function (err) {
-
         should.exist(err);
-
-        done();
       });
     });
 
-    it('throws an error if username is missing', function (done) {
+    it('throws an error if username is missing', function () {
       var user = {
         username: null,
         password: 'barbarfoofooasdf'
       };
 
       User.create(user, function (err) {
-
         should.exist(err);
-
-        done();
       });
     });
 
-    it('persists a User if data is valid', function (done) {
+    it('persists a User if data is valid', function () {
       var validUser = {
         username: 'testUser' + Date.now(),
         password: 'passwordwoooo',
         admin: false
       };
 
-      User.create(validUser, function (err, createdUser) {
-
+      User.create(validUser, function (err) {
         should.not.exist(err);
-
-        done();
       });
     });
 
-    it('trims the username', function (done) {
+    it('trims the username', function () {
       var validUser = {
         username: 'userfoo  ',
         password: 'passwordwoooo',
@@ -87,14 +73,11 @@ describe('MODELS', function () {
       };
 
       User.create(validUser, function (err, createdUser) {
-
         createdUser.username.should.equal('userfoo');
-
-        done();
       });
     });
 
-    it('trims the password', function (done) {
+    it('trims the password', function () {
       var validUser = {
         username: 'userfoo',
         password: 'passwordwoooo   ',
@@ -102,28 +85,23 @@ describe('MODELS', function () {
       };
 
       User.create(validUser, function (err, createdUser) {
-
         createdUser.password.should.equal('passwordwoooo');
-
-        done();
       });
     });
   });
 
   describe('Static Methods', function () {
 
-    it('encryptPassword: encrypts the password', function (done) {
+    it('encryptPassword: encrypts the password', function () {
 
       var user = new User();
       var password = 'passwordwoooo';
       var encryptedPassword = user.encryptPassword(password);
 
       encryptedPassword.should.not.equal(password);
-
-      done();
     });
 
-    it('decryptPassword: decrypts the password', function (done) {
+    it('decryptPassword: decrypts the password', function () {
 
       var user = new User();
       var password = 'passwordwoooo';
@@ -131,8 +109,6 @@ describe('MODELS', function () {
       var decryptedPassword = user.decryptPassword(password, encryptedPassword);
 
       decryptedPassword.should.be.true;
-
-      done();
     });
   });
 });

@@ -9,6 +9,9 @@ var app 		= require('../../app.js');
 var baseUrl 	= app.get('baseUrl');
 
 describe('CONTROLLERS', function() {
+
+	var token;
+
 	describe('/users/', function () {
 
 		describe('GET', function () {
@@ -111,6 +114,8 @@ describe('CONTROLLERS', function() {
 						return done(err);
 					}
 
+					token = res.body.token;
+
 					done();
 				})
 			});
@@ -142,7 +147,8 @@ describe('CONTROLLERS', function() {
 				.set('Accept', 'application/json')
 				.send({
 					'username': 'acceptable',
-					'password': 'supercalifragilistic'
+					'password': 'supercalifragilistic',
+					'token': token
 				})
 				.expect(200)
 				.end(function (err, res) {

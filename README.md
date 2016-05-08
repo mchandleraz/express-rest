@@ -5,7 +5,7 @@ greasy little REST api
 ####Before Doing Anything
 ```npm install```
 
-####To Run the Server Locally
+####To Run the Server Locally. Listens on port 3000 (s/o that boy andre 3000)
 ```npm start```
 
 ####To Run the Tests

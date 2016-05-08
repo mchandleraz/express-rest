@@ -1,5 +1,6 @@
 var User 		= require('../../models/user');
 var jwt 		= require('jsonwebtoken');
+var isAuthenticated = require('./../util').isAuthenticated
 
 var routes = function(app) {
 
@@ -61,8 +62,8 @@ var routes = function(app) {
 
 	});
 
-	/* Update existing user*/
-	app.put(baseUrl + '/:id', function (req, res, next) {
+	/* PUT existing user */
+	app.put(baseUrl + '/:id', isAuthenticated, function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {
 			if (err) {

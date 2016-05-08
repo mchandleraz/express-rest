@@ -12,5 +12,6 @@ addons:
     - g++-4.8
 before_install:
   - sudo pip install codecov
+  - npm install -g jasmine
 after_success:
   - codecov

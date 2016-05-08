@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "istanbul cover _mocha -- --recursive && codecov -t 043b95b2-3290-4f19-b90f-05bf253b5b87"
+    "test": "istanbul cover --include-all-sources jasmine &&  codecov -t 043b95b2-3290-4f19-b90f-05bf253b5b87"
   },
   "dependencies": {
     "bcrypt": "^0.8.6",
@@ -17,9 +17,7 @@
     "morgan": "~1.6.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
     "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
     "mockgoose": "^6.0.0",
     "supertest": "^1.2.0"
   }

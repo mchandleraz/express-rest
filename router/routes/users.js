@@ -62,7 +62,7 @@ var routes = function(app) {
 
 	});
 
-	/* Update existing user */
+	/* PUT existing user */
 	app.put(baseUrl + '/:id', isAuthenticated, function (req, res, next) {
 
 		User.findById(req.params.id, function (err, user) {

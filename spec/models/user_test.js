@@ -98,7 +98,6 @@ describe('MODELS', function () {
   });
 
   describe('Static Methods', function () {
-
     it('encryptPassword: encrypts the password', function () {
 
       var user = new User();

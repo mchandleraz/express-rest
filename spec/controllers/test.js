@@ -45,6 +45,7 @@ describe('CONTROLLERS', function() {
 					done();
 				});
 			});
+
 			it('responds with 500 if password is missing', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
@@ -61,6 +62,7 @@ describe('CONTROLLERS', function() {
 					done();
 				});
 			});
+
 			it('responds with 500 if username is less than 4 characters', function (done) {
 				request(app)
 				.post(baseUrl + '/users')
@@ -77,6 +79,7 @@ describe('CONTROLLERS', function() {
 					done();
 				});
 			});
+
 			it('responds with 500 if password is less than 12 chars', function (done) {
 				request(app)
 				.post(baseUrl + '/users')

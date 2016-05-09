@@ -1,59 +1,63 @@
-var should 		= require('chai').should();
 var app 		= require('../../app.js');
 var baseUrl 	= app.get('baseUrl');
+var User = require('../../models/user');
 
 describe('MODELS', function () {
 
-  var User = require('../../models/user');
-
   describe('User', function() {
-
-    it('throws an error if password.length < 12', function () {
+    it('throws an error if password.length < 12', function (done) {
       var user = {
         username: 'foo4',
         password: 'barbar'
       };
 
       User.create(user, function (err) {
-        should.exist(err);
+        expect(err).toBeDefined();
+        expect(err).not.toBeNull();
+        done();
       });
     });
 
-    it('throws an error if username.length < 4', function () {
+    it('throws an error if username.length < 4', function (done) {
       var user = {
         username: 'foo',
-        password: 'barbarfoofooasdf'
+        password: 'barbarfoofooasdf',
+        admin: true
       };
 
       User.create(user, function (err) {
-        should.exist(err);
+        expect(err).not.toBeNull();
+        done();
       });
-
     });
 
-    it('throws an error if password is missing', function () {
+    it('throws an error if password is missing', function (done) {
       var user = {
         username: 'foo4',
         password: null
       };
 
       User.create(user, function (err) {
-        should.exist(err);
+        expect(err).toBeDefined();
+        expect(err).not.toBeNull();
+        done();
       });
     });
 
-    it('throws an error if username is missing', function () {
+    it('throws an error if username is missing', function (done) {
       var user = {
         username: null,
         password: 'barbarfoofooasdf'
       };
 
       User.create(user, function (err) {
-        should.exist(err);
+        expect(err).toBeDefined();
+        expect(err).not.toBeNull();
+        done();
       });
     });
 
-    it('persists a User if data is valid', function () {
+    it('persists a User if data is valid', function (done) {
       var validUser = {
         username: 'testUser' + Date.now(),
         password: 'passwordwoooo',
@@ -61,11 +65,12 @@ describe('MODELS', function () {
       };
 
       User.create(validUser, function (err) {
-        should.not.exist(err);
+        expect(err).toBeNull();
+        done();
       });
     });
 
-    it('trims the username', function () {
+    it('trims the username', function (done) {
       var validUser = {
         username: 'userfoo  ',
         password: 'passwordwoooo',
@@ -73,11 +78,12 @@ describe('MODELS', function () {
       };
 
       User.create(validUser, function (err, createdUser) {
-        createdUser.username.should.equal('userfoo');
+        expect(createdUser.username).toEqual('userfoo');
+        done();
       });
     });
 
-    it('trims the password', function () {
+    it('trims the password', function (done) {
       var validUser = {
         username: 'userfoo',
         password: 'passwordwoooo   ',
@@ -85,7 +91,8 @@ describe('MODELS', function () {
       };
 
       User.create(validUser, function (err, createdUser) {
-        createdUser.password.should.equal('passwordwoooo');
+        expect(createdUser.password).toEqual('passwordwoooo');
+        done();
       });
     });
   });
@@ -98,7 +105,7 @@ describe('MODELS', function () {
       var password = 'passwordwoooo';
       var encryptedPassword = user.encryptPassword(password);
 
-      encryptedPassword.should.not.equal(password);
+      expect(encryptedPassword).not.toEqual(password);
     });
 
     it('decryptPassword: decrypts the password', function () {
@@ -108,7 +115,7 @@ describe('MODELS', function () {
       var encryptedPassword = user.encryptPassword(password);
       var decryptedPassword = user.decryptPassword(password, encryptedPassword);
 
-      decryptedPassword.should.be.true;
+      expect(decryptedPassword).toBe(true);
     });
-  });
+  })
 });

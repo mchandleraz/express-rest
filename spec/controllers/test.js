@@ -1,4 +1,3 @@
-var expect 		= require('chai').expect;
 var request 	= require('supertest');
 var mongoose 	= require('mongoose');
 var mockgoose	= require('mockgoose');
@@ -20,13 +19,11 @@ describe('CONTROLLERS', function() {
 				.get(baseUrl + '/users')
 				.set('Accept', 'application/json')
 				.expect(200)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
-
 				});
 			});
 		});
@@ -41,11 +38,10 @@ describe('CONTROLLERS', function() {
 					'password': 'thisisalongpasswordright'
 				})
 				.expect(500)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
 				});
 			});
@@ -58,11 +54,10 @@ describe('CONTROLLERS', function() {
 					'password': null
 				})
 				.expect(500)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
 				});
 			});
@@ -75,11 +70,10 @@ describe('CONTROLLERS', function() {
 					'password': 'thisisalongpasswordright'
 				})
 				.expect(500)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
 				});
 			});
@@ -92,11 +86,10 @@ describe('CONTROLLERS', function() {
 					'password': 'shorty'
 				})
 				.expect(500)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
 				});
 			});
@@ -113,9 +106,7 @@ describe('CONTROLLERS', function() {
 					if (err) {
 						return done(err);
 					}
-
 					token = res.body.token;
-
 					done();
 				})
 			});
@@ -129,13 +120,11 @@ describe('CONTROLLERS', function() {
 				.get(baseUrl + '/users/56f6fb023724d009116d08f6')
 				.set('Accept', 'application/json')
 				.expect(200)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
-
 				});
 			});
 		});
@@ -151,13 +140,11 @@ describe('CONTROLLERS', function() {
 					'token': token
 				})
 				.expect(200)
-				.end(function (err, res) {
+				.end(function (err) {
 					if (err) {
 						return done(err);
 					}
-
 					done();
-
 				});
 			});
 		});

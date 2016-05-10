@@ -1,4 +1,4 @@
-// var Item 		= require('../../models/item');
+var Item 		= require('../../models/item');
 var jwt 		= require('jsonwebtoken');
 var isAuthenticated = require('./../util').isAuthenticated
 

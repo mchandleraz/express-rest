@@ -155,12 +155,14 @@ describe('CONTROLLERS', function() {
 			it('returns a 200 OK status code', function(done) {
 				request(app)
 				.get(baseUrl + '/items')
+				.set('x-access-token', token)
 				.set('Accept', 'application/json')
 				.expect(200)
 				.end(function(err, res) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
+					
 					done();
 				})
 			});

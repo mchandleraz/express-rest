@@ -21,7 +21,7 @@ describe('CONTROLLERS', function() {
 				.expect(200)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -40,7 +40,7 @@ describe('CONTROLLERS', function() {
 				.expect(500)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -56,7 +56,7 @@ describe('CONTROLLERS', function() {
 				.expect(500)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -72,7 +72,7 @@ describe('CONTROLLERS', function() {
 				.expect(500)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -88,7 +88,7 @@ describe('CONTROLLERS', function() {
 				.expect(500)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -104,7 +104,7 @@ describe('CONTROLLERS', function() {
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					token = res.body.token;
 					done();
@@ -122,7 +122,7 @@ describe('CONTROLLERS', function() {
 				.expect(200)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});
@@ -142,7 +142,7 @@ describe('CONTROLLERS', function() {
 				.expect(200)
 				.end(function (err) {
 					if (err) {
-						return done(err);
+						return done.fail(err);
 					}
 					done();
 				});

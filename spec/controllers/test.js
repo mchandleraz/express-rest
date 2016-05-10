@@ -149,4 +149,21 @@ describe('CONTROLLERS', function() {
 			});
 		});
 	});
+
+	describe('/items/', function() {
+		describe('GET', function() {
+			it('returns a 200 OK status code', function(done) {
+				request(app)
+				.get(baseUrl + '/items')
+				.set('Accept', 'application/json')
+				.expect(200)
+				.end(function(err, res) {
+					if (err) {
+						return done(err);
+					}
+					done();
+				})
+			});
+		});
+	});
 });

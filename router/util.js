@@ -4,7 +4,7 @@ var app			= require('express')();
 module.exports = {
 	isAuthenticated: function(req, res, next) {
 		
-		var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+		var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
 		if (!token) {
 			return res.status(403).send({ 

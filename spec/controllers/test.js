@@ -120,10 +120,11 @@ describe('CONTROLLERS', function() {
 				.get(baseUrl + '/users/56f6fb023724d009116d08f6')
 				.set('Accept', 'application/json')
 				.expect(200)
-				.end(function (err) {
+				.end(function (err, res) {
 					if (err) {
 						return done.fail(err);
 					}
+					expect(res.body['_id']).toEqual('56f6fb023724d009116d08f6');
 					done();
 				});
 			});
@@ -140,10 +141,12 @@ describe('CONTROLLERS', function() {
 					'token': token
 				})
 				.expect(200)
-				.end(function (err) {
+				.end(function (err, res) {
 					if (err) {
 						return done.fail(err);
 					}
+					var messageContainsFailed = res.body.message.indexOf('Failed') > -1;
+					expect(messageContainsFailed).toEqual(false);
 					done();
 				});
 			});
@@ -152,7 +155,7 @@ describe('CONTROLLERS', function() {
 
 	describe('/items/', function() {
 		describe('GET', function() {
-			it('returns a 200 OK status code', function(done) {
+			it('returns a 200 OK status code and a list of Items', function(done) {
 				request(app)
 				.get(baseUrl + '/items')
 				.set('x-access-token', token)
@@ -162,9 +165,10 @@ describe('CONTROLLERS', function() {
 					if (err) {
 						return done.fail(err);
 					}
-					
+					var messageContainsFailed = res.body.message.indexOf('Failed') > -1;
+					expect(messageContainsFailed).toEqual(false);
 					done();
-				})
+				});
 			});
 		});
 	});
